@@ -1,15 +1,12 @@
-div class="access-denied-container">
+<div class="flex align-items-center justify-content-center min-h-screen">
+  <div class="text-center surface-card p-6 border-round-xl shadow-4">
+    <h1 class="text-7xl font-bold text-red-500 m-0">403</h1>
 
-  <h1>403</h1>
+    <h2 class="text-3xl font-semibold mt-3 mb-2">Access Denied</h2>
 
-  <h2>Access Denied</h2>
+    <p class="text-color-secondary mb-5">You do not have permission to access this page.</p>
 
-  <p>
-    You do not have permission to access this page.
-  </p>
-
-  <button routerLink="">
-    Go To Login
-  </button>
-
+    <p-button label="Go To Login" severity="contrast" icon="pi pi-sign-in" routerLink="">
+    </p-button>
+  </div>
 </div>

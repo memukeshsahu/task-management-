@@ -1,13 +1,20 @@
 import { Routes } from '@angular/router';
 import { Login } from './pages/login/login';
 import { Sidebar } from './components/sidebar/sidebar';
-import { authGuard } from './core/auth/auth-guard';
+import { authGuard } from './core/guard/auth/auth-guard';
+import { guestGuard } from './core/guard/guest-guard';
 
 export const routes: Routes = [
-    { path: "", component: Login },
+    {
+        path: "", component: Login, canActivate: [guestGuard]
+    },
     {
         path: 'tasks', loadComponent: () => import('./pages/task-list/task-list').then
-            (m => m.TaskList),canActivate:[authGuard]
+            (m => m.TaskList), canActivate: [authGuard]
+    },
+    {
+        path: 'users', loadComponent: () => import('./pages/task-list/task-list').then
+            (m => m.TaskList), canActivate: [authGuard]
     },
     {
         path: 'access-denied', loadComponent: () => import('./components/access-denied/access-denied').then

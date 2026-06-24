@@ -1,5 +1,13 @@
+<p-toast></p-toast>
+
 @if (isUserLoggedIn) {
+
   <app-sidebar></app-sidebar>
+
 }
 
-<router-outlet />
+<div
+  class="main-content"
+  [class.content-shift]="layoutService.sidebarOpen()">
+
+  <router-outlet></router-outlet>

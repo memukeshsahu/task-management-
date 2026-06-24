@@ -6,5 +6,5 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   return localStorage.getItem('token') ?
     true : inject(Router)
-      .createUrlTree(['/access-denied']);;
+      .createUrlTree(['/access-denied']);
 };

@@ -1,0 +1,9 @@
+.main-content {
+  min-height: 100vh;
+  padding: 1rem;
+  transition: margin-left 0.3s ease;
+}
+
+.content-shift {
+  margin-left: 260px;
+}

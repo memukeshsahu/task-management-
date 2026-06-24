@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { LoginRequest } from '../../core/models/request/login-request';
 import { AuthService } from '../../core/services/auth-service';
+import { ToastService } from '../../core/services/toast-service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class Login {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private toastService =inject(ToastService);
 
   loginForm :FormGroup= this.fb.group({
     phoneNumber: [
@@ -57,11 +59,13 @@ console.log(this.loginForm.value)
           next: (response) => {
             console.log(response);
             localStorage.setItem('token', response.data.token)
+            this.toastService.success(response.message);
             this.router.navigate(['/tasks'])
 
           },
           error: (error) => {
             console.error(error);
+            this.toastService.error(error.error.message??'Something went wrong');
           }
         }
       )
