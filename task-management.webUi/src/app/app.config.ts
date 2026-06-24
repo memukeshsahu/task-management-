@@ -3,16 +3,24 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
-import Lara from '@primeuix/themes/aura';
+import Aura from '@primeuix/themes/aura';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/interceptor/auth-interceptor';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
+    
+    provideHttpClient(
+      withInterceptors([authInterceptor])),
+    provideAnimationsAsync(),
      providePrimeNG({
        theme: {
-         preset: Lara
+         preset: Aura
        }
      })
   ]

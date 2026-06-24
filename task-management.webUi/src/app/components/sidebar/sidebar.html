@@ -1,0 +1,35 @@
+<div class="card">
+  <p-toolbar>
+    <ng-template #start>
+      <p-button icon="pi pi-bars" (onClick)="visible = true" text severity="secondary"> </p-button>
+    </ng-template>
+  </p-toolbar>
+
+<p-drawer [(visible)]="visible" header="Task Management">
+
+  <div class="flex flex-column gap-1 mt-3">
+
+    <a routerLink="/dashboard"
+       routerLinkActive="active-menu"
+       class="menu-link">
+      <i class="pi pi-home"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a routerLink="/tasks"
+       routerLinkActive="active-menu"
+       class="menu-link">
+      <i class="pi pi-list-check"></i>
+      <span>Tasks</span>
+    </a>
+
+    <a routerLink="/users"
+       routerLinkActive="active-menu"
+       class="menu-link">
+      <i class="pi pi-users"></i>
+      <span>Users</span>
+    </a>
+
+  </div>
+
+</p-drawer>

@@ -1,1 +1,61 @@
-<p>login works!</p>
+<div class="flex justify-content-center align-items-center min-h-screen">
+  <p-card>
+    <div class="w-full">
+      <h2 class="text-center mb-4">Login</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-1">
+          <label>Phone Number</label>
+          <input
+            pInputText
+            class="w-full"
+            placeholder="Enter Phone Number"
+            formControlName="phoneNumber"
+          />
+        </div>
+        @if (loginForm.get('phoneNumber')?.touched && loginForm.get('phoneNumber')?.invalid) {
+          <small class="text-red-500">
+            @if (loginForm.get('phoneNumber')?.errors?.['required']) {
+              <span>Phone number is required.</span>
+            }
+
+            @if (loginForm.get('phoneNumber')?.errors?.['minlength']) {
+              <span>Phone number must be 10 digits.</span>
+            }
+
+            @if (loginForm.get('phoneNumber')?.errors?.['maxlength']) {
+              <span>Phone number must be 10 digits.</span>
+            }
+
+            @if (loginForm.get('phoneNumber')?.errors?.['pattern']) {
+              <span>Only numbers are allowed.</span>
+            }
+          </small>
+        }
+
+        <div class="mb-1">
+          <label>Password</label>
+          <input
+            pInputText
+            type="password"
+            class="w-full"
+            placeholder="Enter Password"
+            formControlName="password"
+          />
+        </div>
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+          <small class="text-red-500">
+            @if (loginForm.get('password')?.errors?.['required']) {
+              <span>Password is required.</span>
+            }
+
+            @if (loginForm.get('password')?.errors?.['minlength']) {
+              <span>Password must be at least 6 characters.</span>
+            }
+          </small>
+        }
+        <p-button label="login" type="submit" severity="contrast" styleClass="w-full mb-2"> </p-button>
+      </form>
+    </div>
+  </p-card>
+</div>
