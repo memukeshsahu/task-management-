@@ -22,14 +22,14 @@ import { ToastService } from '../../core/services/toast-service';
   styleUrl: './login.css',
 })
 export class Login {
-  
+
 
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
-  private toastService =inject(ToastService);
+  private toastService = inject(ToastService);
 
-  loginForm :FormGroup= this.fb.group({
+  loginForm: FormGroup = this.fb.group({
     phoneNumber: [
       '',
       [
@@ -46,26 +46,29 @@ export class Login {
 
 
   onSubmit() {
-console.log(this.loginForm.value)
-    const request: LoginRequest = {
+    console.log(this.loginForm.value)
+    const payload: LoginRequest = {
 
       phoneNumber: this.loginForm.value.phoneNumber,
       password: this.loginForm.value.password
     };
 
-    this.authService.login(request)
+    this.authService.login(payload)
       .subscribe(
         {
           next: (response) => {
             console.log(response);
-            localStorage.setItem('token', response.data.token)
+            this.authService.saveTokens(
+              response.data.token,
+              response.data.refreshToken
+            );
             this.toastService.success(response.message);
             this.router.navigate(['/tasks'])
 
           },
           error: (error) => {
             console.error(error);
-            this.toastService.error(error.error.message??'Something went wrong');
+            this.toastService.error(error.error.message ?? 'Something went wrong');
           }
         }
       )

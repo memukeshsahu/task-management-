@@ -1,33 +1,56 @@
-<p-button
-  icon="pi pi-bars"
-  text
-  severity="secondary"
-  styleClass="menu-toggle"
-  (onClick)="layoutService.toggleSidebar()"
->
-</p-button>
+<div>
+  <p-button
+    icon="pi pi-bars"
+    text
+    severity="secondary"
+    styleClass="menu-toggle"
+    (onClick)="layoutService.toggleSidebar()"
+  >
+  </p-button>
 
-<div class="sidebar" [class.sidebar-open]="layoutService.sidebarOpen()">
-  <div class="sidebar-header">
-    <h3>Task Management</h3>
+  <div class="sidebar" [class.sidebar-open]="layoutService.sidebarOpen()">
+    <div class="sidebar-header">
+      <h3>Task Management</h3>
 
-    <i class="pi pi-times close-icon" (click)="layoutService.closeSidebar()"> </i>
-  </div>
+      <i class="pi pi-times close-icon" (click)="layoutService.closeSidebar()"> </i>
+    </div>
 
-  <div class="menu-container">
-    <a routerLink="/dashboard" routerLinkActive="active-menu" class="menu-link">
+    <div class="menu-container">
+      <!-- <a routerLink="/dashboard" routerLinkActive="active-menu" class="menu-link">
       <i class="pi pi-home"></i>
       <span>Dashboard</span>
-    </a>
+    </a> -->
 
-    <a routerLink="/tasks" routerLinkActive="active-menu" class="menu-link">
-      <i class="pi pi-list-check"></i>
-      <span>Tasks</span>
-    </a>
+      <a routerLink="/tasks" routerLinkActive="active-menu" class="menu-link">
+        <i class="pi pi-list-check"></i>
+        <span>Tasks</span>
+      </a>
 
-    <a routerLink="/users" routerLinkActive="active-menu" class="menu-link">
+      <!-- <a routerLink="/users" routerLinkActive="active-menu" class="menu-link">
       <i class="pi pi-users"></i>
       <span>Users</span>
-    </a>
+    </a> -->
+    </div>
+    <div class="sidebar-footer">
+      <div class="profile-section">
+        <i class="pi pi-user profile-icon"></i>
+
+        <div class="profile-details">
+          <span class="name">Mukesh</span>
+          <small>Software Developer</small>
+        </div>
+      </div>
+
+      <button
+        pButton
+        type="button"
+        icon="pi pi-sign-out"
+        label="Logout"
+        variant="outlined"
+        severity="danger"
+        class="w-full"
+        (click)="logout()"
+      ></button>
+    </div>
   </div>
 </div>
