@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../models/request/login-request';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -63,5 +64,43 @@ export class AuthService {
     this.refreshToken.set(null);
 
     this.router.navigate(['']);
+  }
+  getUserName(): string | null {
+    const token = this.getAccessToken();
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decoded: any = jwtDecode(token);
+
+      return (decoded.first_name + " " + decoded.last_name).trim() ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  getUserRole(): string | null {
+    const token = this.getAccessToken();
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decoded: any = jwtDecode(token);
+      return this.formatRoleText(decoded.user_access_type);
+    } catch {
+      return null;
+    }
+  }
+
+  private formatRoleText(value: string): string {
+    if (!value) {
+      return '';
+    }
+
+    return value.replace(/([a-z])([A-Z])/g, '$1 $2');
   }
 }

@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { LayoutService } from '../../core/services/layout-service';
 import { AuthService } from '../../core/services/auth-service';
-import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,6 +18,8 @@ export class Sidebar {
 
   layoutService = inject(LayoutService);
   private authService = inject(AuthService);
+  username = this.authService.getUserName();
+  role = this.authService.getUserRole();
 
   logout() {
     this.authService.logout();
