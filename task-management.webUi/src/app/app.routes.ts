@@ -20,19 +20,23 @@ export const routes: Routes = [
     },
     {
         path: 'tasks/add-task',
-        component: TaskCreate
-    },
-    {
-        path: 'tasks/edit-task',
-        component: TaskCreate
+        loadComponent: () => import('./pages/task-create/task-create')
+            .then(m => m.TaskCreate), canActivate: [authGuard]
     },
     {
         path: 'tasks/edit-task/:id',
-        component: TaskCreate
+        loadComponent: () => import('./pages/task-create/task-create')
+            .then(m => m.TaskCreate), canActivate: [authGuard]
     },
     {
         path: 'tasks/:id',
-        component: TaskDetails
+        loadComponent: () => import('./pages/task-details/task-details')
+            .then(m => m.TaskDetails), canActivate: [authGuard]
+    },
+    {
+        path: 'members',
+        loadComponent: () => import('./pages/members-list/members-list')
+            .then(m => m.MembersList), canActivate: [authGuard]
     },
     {
         path: 'access-denied', loadComponent: () => import('./components/access-denied/access-denied').then
