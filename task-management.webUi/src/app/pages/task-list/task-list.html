@@ -52,7 +52,7 @@
               [text]="true"
               [rounded]="true"
               severity="secondary"
-              (click)="onMenuClick($event, menu, task)"
+              (click)="onMenuClick($event, menu, task);saveCurrentEvent($event)"
             >
             </p-button>
           </td>

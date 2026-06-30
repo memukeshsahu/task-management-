@@ -1,8 +1,56 @@
-<div class="field col-12">
-  <label class="block mb-2 font-medium text-900">Comments</label>
-  <textarea rows="6" pInputTextarea name="description" class="w-full"> </textarea>
-  <div class="flex justify-content-end flex-wrap">
-    <p-button icon="pi pi-send" label="Send" (onClick)="onComment()" class="mt-3" severity="contrast" />
+<form [formGroup]="commentForm" (ngSubmit)="onComment()">
+  <div class="field col-12">
+    <label class="block mb-2 font-medium text-900">Comments</label>
+    <textarea rows="6" pInputTextarea name="description" class="w-full" formControlName="message">
+    </textarea>
+    @if (commentForm.get('message')?.touched && commentForm.get('message')?.invalid) {
+      <small class="text-red-500 block mt-1">
+        @if (commentForm.get('message')?.errors?.['required']) {
+          <span>Comments is required.</span>
+        }
+         @if (commentForm.get('message')?.errors?.['pattern']) {
+          <span>White space is not allowed</span>
+        }
+         @if (commentForm.get('message')?.errors?.['maxlength']) {
+          <span>Minimum 500 characters are allowed</span>
+        }
+      </small>
+    }
+    <div class="flex justify-content-end flex-wrap">
+      <p-button
+        icon="pi pi-send"
+        label="Send"
+        (onClick)="onComment()"
+        [disabled]="commentForm.invalid"
+        class="mt-3"
+        severity="contrast"
+      />
+    </div>
+    <div class="gap-2 mt-4 border-top-1 surface-border pt-3"></div>
   </div>
-  <div class="gap-2 mt-4 border-top-1 surface-border pt-3"></div>
+</form>
+<div class="flex flex-column gap-3">
+  @for (comment of comments; track comment.id) {
+    <div
+      class="flex"
+      [ngClass]="comment.userId === currentUserId ? 'justify-content-end' : 'justify-content-start'"
+    >
+      <div
+        class="border-round-xl p-3 shadow-1 max-w-30rem"
+        [ngClass]="comment.userId === currentUserId ? 'my-message' : 'surface-100'"
+      >
+        <div class="font-semibold mb-2">
+          {{ comment.userName }}
+        </div>
+
+        <div>
+          {{ comment.message }}
+        </div>
+
+        <small class="block mt-2 opacity-70">
+          {{ comment.createdOn | date: 'short' }}
+        </small>
+      </div>
+    </div>
+  }
 </div>

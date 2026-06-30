@@ -100,16 +100,23 @@ export const mock_tasks: TaskListResponse[] = [
     ButtonModule,
     MenuModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+
+
   ],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
+  standalone: true
 })
 export class TaskList {
 
 
   private readonly taskService = inject(TaskService);
   private readonly router = inject(Router);
+  // private confirmationService = inject(ConfirmationService);
+  private currentEvent: Event | null = null;
+  // // private messageService = inject(MessageService);
+
   cols = [
     { field: 'tittle', header: 'Title' },
     { field: 'description', header: 'Description' },
@@ -160,7 +167,16 @@ export class TaskList {
         this.loading = false;
       }
     });
+    if (!this.tasks || this.tasks.length === 0) {
+      this.loading = false
+    }
   }
+
+  saveCurrentEvent(event: Event) {
+    this.currentEvent = event;
+    console.log("Current event is:", event)
+  }
+
   onMenuClick(event: MouseEvent, menu: Menu, task: any) {
     event.stopPropagation();
     this.selectedTask = task;
@@ -188,5 +204,41 @@ export class TaskList {
   onRowClick(task: TaskListResponse): void {
     this.router.navigate(['/tasks', task.id]);
   }
+
+  // showConfirmation(action: 'edit' | 'delete') {
+  //   this.confirmationService.confirm({
+  //     target: this.currentEvent?.target as EventTarget,
+  //     message: `Are you sure that you want to proceed with ${action}?`,
+  //     header: 'Confirmation',
+  //     closable: true,
+  //     closeOnEscape: true,
+  //     icon: 'pi pi-exclamation-triangle',
+  //     rejectButtonProps: {
+  //       label: 'Cancel',
+  //       severity: 'secondary',
+  //       outlined: true
+  //     },
+  //     acceptButtonProps: {
+  //       label: action === 'delete' ? 'Delete' : 'Save',
+  //       severity: action === 'delete' ? 'danger' : 'primary'
+  //     },
+  //     accept: () => {
+  //       if (action === 'edit') {
+  //         this.openEditModal(this.selectedTask);
+  //       } else {
+  //          this.openDeleteModal(this.selectedTask);
+  //       }
+  //       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Action executed successfully' });
+  //     },
+  //     reject: () => {
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Rejected',
+  //         detail: 'You have cancelled the action',
+  //         life: 3000
+  //       });
+  //     }
+  //   });
+  // }
 
 }

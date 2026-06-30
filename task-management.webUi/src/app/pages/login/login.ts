@@ -4,9 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
 import { LoginRequest } from '../../core/models/request/login-request';
 import { AuthService } from '../../core/services/auth-service';
 import { ToastService } from '../../core/services/toast-service';
