@@ -1,1 +1,82 @@
-<p>members-list works!</p>
+<div class="card">
+  <div class="flex justify-content-between flex-wrap">
+    <div>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchQuery"
+        class="border-round-md w-15rem p-2"
+        placeholder="Search members..."
+      />
+    </div>
+    <div>
+      <p-button label="+ Add Members" severity="contrast" (onClick)="showAddMemberDialog()">
+      </p-button>
+    </div>
+  </div>
+
+  <p-table
+    [value]="members"
+    [scrollable]="true"
+    scrollHeight="80vh"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template #header>
+      <tr>
+        @for (col of cols; track col.field) {
+          <th>{{ col.header }}</th>
+        }
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-member>
+      <tr class="cursor-pointer">
+        @if (loading) {
+          @for (col of cols; track col.field) {
+            <td><p-skeleton /></td>
+          }
+          <td><p-skeleton width="2rem" /></td>
+        } @else {
+          @for (col of cols; track col.field) {
+            <td>{{ member[col.field] }}</td>
+          }
+
+          <td>
+            <p-menu #menu [model]="actionMenuItems" [popup]="true" appendTo="body"></p-menu>
+
+            <p-button
+              icon="pi pi-ellipsis-v"
+              [text]="true"
+              [rounded]="true"
+              severity="secondary"
+              (click)="onMenuClick($event, menu, member)"
+            >
+            </p-button>
+          </td>
+        }
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-paginator
+  (onPageChange)="onPageChange($event)"
+  [first]="first"
+  [rows]="rows"
+  [totalRecords]="120"
+  [rowsPerPageOptions]="[10, 20, 30]"
+/>
+
+<p-dialog
+  [(visible)]="displayMemberDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '35rem' }"
+  [closable]="true"
+  header="{{ memberId ? 'Edit Member' : 'Add Member' }}"
+  (onHide)="onDialogClose()"
+>
+  <app-member [memberId]="memberId" (close)="onDialogClose()"> </app-member>
+</p-dialog>

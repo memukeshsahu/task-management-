@@ -57,7 +57,7 @@
         </div>
 
         <!-- Submit Button -->
-        <p-button label="login" type="submit" severity="contrast" styleClass="w-full py-2">
+        <p-button label="login" type="submit" severity="contrast" styleClass="w-full py-2" [disabled]="loginForm.invalid">
         </p-button>
       </form>
     </div>

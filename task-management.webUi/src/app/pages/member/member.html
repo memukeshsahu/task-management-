@@ -1,0 +1,64 @@
+<form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+  <div class="grid">
+    <div class="col-12">
+      <label class="block mb-2">Name </label>
+      <input pInputText class="w-full p-2" placeholder="Enter member name" formControlName="name" />
+       @if (memberForm.get('name')?.touched && memberForm.get('name')?.invalid) {
+        <small class="text-red-500 block mt-1">
+          @if (memberForm.get('name')?.errors?.['required']) {
+            <span>Name is required.</span>
+          }
+        </small>
+      }
+    </div>
+    <div class="col-12">
+      <label class="block mb-2">Email Address </label>
+      <input
+        pInputText
+        class="w-full p-2"
+        placeholder="Enter Email Address"
+        formControlName="email"
+      />
+      @if (memberForm.get('email')?.touched && memberForm.get('email')?.invalid) {
+        <small class="text-red-500 block mt-1">
+          @if (memberForm.get('email')?.errors?.['required']) {
+            <span>Email is required.</span>
+          }
+          @if (memberForm.get('email')?.errors?.['email']) {
+            <span>Please enter a valid email address.</span>
+          }
+        </small>
+      }
+    </div>
+    <div class="col-12">
+      <label class="block mb-2">Role </label>
+      <input pInputText class="w-full p-2" placeholder="Enter Role" formControlName="role" />
+    </div>
+    @if (memberForm.get('role')?.touched && memberForm.get('role')?.invalid) {
+      <small class="text-red-500 block mt-1">
+        @if (memberForm.get('role')?.errors?.['required']) {
+          <span>Role is required.</span>
+        }
+      </small>
+    }
+  </div>
+
+  <div class="flex justify-content-end gap-2 mt-4 border-top-1 surface-border pt-3">
+    <p-button
+      label="Cancel"
+      severity="secondary"
+      [outlined]="true"
+      type="button"
+      (onClick)="onCancel()"
+    >
+    </p-button>
+
+    <p-button
+      [label]="memberId ? 'Update' : 'Create Member'"
+      severity="contrast"
+      type="submit"
+      [disabled]="memberForm.invalid"
+    >
+    </p-button>
+  </div>
+</form>
