@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
+import { TaskService } from '../../core/services/task-service';
+import { Observable } from 'rxjs';
+import { TaskListResponse } from '../../core/models/response/task-list-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,28 +15,32 @@ import { TagModule } from 'primeng/tag';
 })
 export class Dashboard {
 
-  tasks = [
-    {
-      id: 1,
-      title: 'Angular',
-      status: 'Overdue',
-      priority: 'Medium'
-    },
-    {
-      id: 2,
-      title: 'Create Dashboard API',
-      status: 'Due Today',
-      priority: 'High'
-    },
-    {
-      id: 3,
-      title: 'Fix Login Bug',
-      status: 'In Progress',
-      priority: 'Low'
-    }
-  ];
+  private taskService = inject(TaskService);
+  private router = inject(Router);
+
+  tasks: TaskListResponse[] = [];
+
+  ngOnInit() {
+    this.loadTasks();
+  }
+
+  loadTasks() {
+    this.taskService.getTasks().subscribe(
+      (tasks) => {
+        this.tasks = tasks;
+      },
+      (error) => {
+        console.error('Error fetching tasks:', error);
+      }
+    );
+  }
 
   get totalPendingTasks(): number {
-    return this.tasks.length;
+    return this.tasks.filter((task) => task.status === 'Pending').length;
   }
+
+  onRowClick(taskId: number): void {
+    this.router.navigate(['/tasks', taskId]);
+  }
+
 }

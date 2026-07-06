@@ -14,38 +14,41 @@ export const mock_tasks: TaskListResponse[] = [
     id: 1,
     tittle: "Fix Authentication Bug",
     description: "Users are experiencing intermittent 401 errors during token refresh on the dashboard.",
-    assignedteammember: "Sarah Jenkins",
+    assignedTeamMember: "Sarah Jenkins",
     priority: "High",
+    status: "Pending",
     dueDate: "2026-06-28"
   },
   {
     id: 2,
     tittle: "Update Privacy Policy",
     description: "Revise the user data retention section to comply with the latest 2026 privacy regulations.",
-    assignedteammember: "Alex Rivera",
+    assignedTeamMember: "Alex Rivera",
     priority: "Medium",
+    status: "Pending",
     dueDate: "2026-07-05"
   },
   {
     id: 3,
     tittle: "Database Migration Preparation",
     description: "Run the staging migration scripts and verify indexing performance on the new cluster.",
-    assignedteammember: "David Chen",
+    assignedTeamMember: "David Chen",
     priority: "Critical",
     dueDate: "2026-06-26"
   },
   {
     tittle: "Design Landing Page Hero Section",
     description: "Create high-fidelity mockups for the Q3 product launch hero section.",
-    assignedteammember: "Emily Taylor",
+    assignedTeamMember: "Emily Taylor",
     priority: "Low",
     dueDate: "2026-07-12",
+    status: "Completed",
     id: 4
   },
   {
     tittle: "Optimize Image Upload Pipeline",
     description: "Implement client-side compression before sending profile pictures to S3 storage.",
-    assignedteammember: "Marcus Vance",
+    assignedTeamMember: "Marcus Vance",
     priority: "Medium",
     dueDate: "2026-07-02",
     id: 5
@@ -53,7 +56,7 @@ export const mock_tasks: TaskListResponse[] = [
   {
     tittle: "Refactor Notification Context",
     description: "Clean up duplicate re-renders by splitting the global toast notification context provider.",
-    assignedteammember: "Sarah Jenkins",
+    assignedTeamMember: "Sarah Jenkins",
     priority: "Low",
     dueDate: "2026-07-19",
     id: 6
@@ -61,7 +64,7 @@ export const mock_tasks: TaskListResponse[] = [
   {
     tittle: "Configure Stripe Webhooks",
     description: "Set up listeners for failed subscription renewals and grace-period triggering.",
-    assignedteammember: "David Chen",
+    assignedTeamMember: "David Chen",
     priority: "High",
     dueDate: "2026-06-30",
     id: 7
@@ -69,7 +72,7 @@ export const mock_tasks: TaskListResponse[] = [
   {
     tittle: "Audit Accessibility (WCAG 2.1)",
     description: "Run contrast checkers on the main dashboard components and add missing aria-labels.",
-    assignedteammember: "Alex Rivera",
+    assignedTeamMember: "Alex Rivera",
     priority: "Medium",
     dueDate: "2026-07-08",
     id: 8
@@ -77,7 +80,7 @@ export const mock_tasks: TaskListResponse[] = [
   {
     tittle: "Draft Q3 Release Notes",
     description: "Gather changelogs from engineering and compile customer-facing documentation for the July update.",
-    assignedteammember: "Chloe Zhang",
+    assignedTeamMember: "Chloe Zhang",
     priority: "Low",
     dueDate: "2026-07-15",
     id: 9
@@ -85,7 +88,7 @@ export const mock_tasks: TaskListResponse[] = [
   {
     tittle: "Resolve Analytics Memory Leak",
     description: "Investigate and patch the memory leak caused by uncleaned event listeners in the dashboard charts.",
-    assignedteammember: "Marcus Vance",
+    assignedTeamMember: "Marcus Vance",
     priority: "Critical",
     dueDate: "2026-06-27",
     id: 10
@@ -120,7 +123,7 @@ export class TaskList {
   cols = [
     { field: 'tittle', header: 'Title' },
     { field: 'description', header: 'Description' },
-    { field: 'assignedteammember', header: 'Assigned team member' },
+    { field: 'assignedTeamMember', header: 'Assigned team member' },
     { field: 'priority', header: 'Priority' },
     { field: 'dueDate', header: 'Due date' },
   ];
@@ -131,7 +134,7 @@ export class TaskList {
   tasks = mock_tasks;
   loading: boolean = false;
   selectedTask: any;
-  seachQuery: any;
+  searchQuery: any;
 
   onPageChange(event: PaginatorState) {
     this.first = event.first ?? 0;

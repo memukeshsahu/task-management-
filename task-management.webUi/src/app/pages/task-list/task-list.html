@@ -4,7 +4,7 @@
       <input
         type="text"
         pInputText
-        [(ngModel)]="seachQuery"
+        [(ngModel)]="searchQuery"
         class="border-round-md w-15rem p-2"
         placeholder="Search tasks..."
       />
@@ -32,7 +32,7 @@
     </ng-template>
 
     <ng-template #body let-task>
-      <tr 
+      <tr
       (click)="onRowClick(task)" class="cursor-pointer">
         @if (loading) {
           @for (col of cols; track col.field) {

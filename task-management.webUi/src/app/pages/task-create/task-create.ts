@@ -55,7 +55,7 @@ export class TaskCreate implements OnInit {
       next: (data) => {
         this.task = {
           title: data?.tittle || '',
-          assignTo: data?.assignedteammember || '',
+          assignTo: data?.assignedTeamMember || '',
           description: data?.description || '',
           priority: data?.priority || '',
           status: data?.status || '',
