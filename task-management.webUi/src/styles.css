@@ -9,3 +9,25 @@ body{
   box-shadow: none !important;
   border-color: orange !important;
 } */
+
+/* 1. Target the active tab text and its native borders */
+.p-tab-active {
+    color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+/* 2. Target the moving active underline bar */
+.p-tablist-active-bar {
+    background-color: #000000 !important;
+}
+
+/* 3. Global safeguard for ALL tabs inside the list to ensure no borders leak green */
+.p-tab {
+    border-color: transparent !important;
+}
+
+/* 4. Keeps the hover clean and dark neutral */
+.p-tab:not(.p-tab-active):hover {
+    color: #404040 !important;
+    border-color: #404040 !important;
+}

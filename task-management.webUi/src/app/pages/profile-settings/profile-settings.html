@@ -1,28 +1,164 @@
 <div>
   <h2 class="mb-1">Settings</h2>
-  <p class="text-black-alpha-40 mt-0 mb-4">
-    Manage your account preferences and settings.
-  </p>
+  <p class="text-black-alpha-40 mt-0 mb-4">Manage your account preferences and settings.</p>
 
   <p-tabs value="userProfile" [selectOnFocus]="true">
     <p-tablist>
       <p-tab value="userProfile">Account Info</p-tab>
-      <p-tab value="changePassword">Payment</p-tab>
+      <p-tab value="changePassword">Password</p-tab>
     </p-tablist>
 
     <p-tabpanels>
       <p-tabpanel value="userProfile">
-        <h2 class="text-lg font-bold">Account Info</h2>
-        <p class="text-surface-500 mt-1">
+        <h2 class="text-lg font-bold mb-1">Account Info</h2>
+        <small class="text-black-alpha-40 mt-0 mb-4">
           Update your personal information such as name, email address, and profile picture.
-        </p>
+        </small>
+        <form class="mt-4" [formGroup]="profileForm" (submit)="updateProfile()">
+          <div class="formgrid grid">
+            <div class="field col">
+              <label>First Name</label>
+              <input
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                formControlName="firstName"
+              />
+              @if (profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched) {
+                <small class="text-red-500">First name is required.</small>
+              }
+            </div>
+            <div class="field col">
+              <label>Last Name</label>
+              <input
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                formControlName="lastName"
+              />
+              @if (profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched) {
+                <small class="text-red-500">Last name is required.</small>
+              }
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
+              <label>Email Address</label>
+              <input
+                [disabled]="true"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                formControlName="email"
+              />
+            </div>
+            <div class="field col">
+              <label>Role</label>
+              <input
+                [disabled]="true"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                formControlName="role"
+              />
+            </div>
+          </div>
+          <div class="flex justify-content-end gap-2 mt-4 border-top-1 surface-border pt-3">
+            <p-button severity="contrast" type="submit">Update Profile</p-button>
+          </div>
+        </form>
       </p-tabpanel>
 
       <p-tabpanel value="changePassword">
-        <h2 class="text-lg font-bold">Payment</h2>
-        <p class="text-surface-500 mt-1">
-          Manage your subscription plan, view invoices, and update your payment method.
-        </p>
+        <h2 class="text-lg font-bold mb-1">Change Password</h2>
+        <small class="text-black-alpha-40 mt-0 mb-4">
+          Update your password to ensure the security of your account.
+        </small>
+        <form class="mt-4" [formGroup]="changePasswordForm" (submit)="onChangePassword()">
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-4">
+              <label for="currentPassword">Current Password</label>
+              <p-password
+                [feedback]="false"
+                [toggleMask]="true"
+                class="w-full"
+                inputStyleClass="w-full"
+                placeholder="Enter current password"
+                formControlName="currentPassword"
+              >
+              </p-password>
+              @if (
+                changePasswordForm.get('currentPassword')?.invalid &&
+                changePasswordForm.get('currentPassword')?.touched
+              ) {
+                @if (changePasswordForm.get('currentPassword')?.hasError('required')) {
+                  <small class="text-red-500">Current password is required.</small>
+                }
+              }
+            </div>
+
+            <div class="field col-12 md:col-4">
+              <label for="newPassword">New Password</label>
+              <p-password
+                [feedback]="true"
+                [toggleMask]="false"
+                class="w-full"
+                inputStyleClass="w-full"
+                placeholder="Enter new password"
+                formControlName="newPassword"
+              >
+              </p-password>
+              @if (
+                changePasswordForm.get('newPassword')?.invalid &&
+                changePasswordForm.get('newPassword')?.touched
+              ) {
+                @if (changePasswordForm.get('newPassword')?.hasError('required')) {
+                  <small class="text-red-500">New password is required.</small>
+                }
+                @if (changePasswordForm.get('newPassword')?.hasError('minlength')) {
+                  <small class="text-red-500"
+                    >New password must be at least 8 characters long.</small
+                  >
+                }
+                @if (changePasswordForm.get('newPassword')?.hasError('pattern')) {
+                  <small class="text-red-500">
+                    New password must contain at least one uppercase letter, one lowercase letter,
+                    one number, and one special character.
+                  </small>
+                }
+              }
+            </div>
+
+            <div class="field col-12 md:col-4">
+              <label for="confirmPassword">Confirm Password</label>
+              <p-password
+                [feedback]="false"
+                [toggleMask]="true"
+                class="w-full"
+                inputStyleClass="w-full"
+                placeholder="Confirm new password"
+                formControlName="confirmPassword"
+              >
+              </p-password>
+
+              @if (
+                changePasswordForm.get('confirmPassword')?.invalid &&
+                changePasswordForm.get('confirmPassword')?.touched
+              ) {
+                <div>
+                  @if (changePasswordForm.get('confirmPassword')?.hasError('required')) {
+                    <small class="text-red-500 block mt-1">Confirm password is required.</small>
+                  }
+                  @if (
+                    changePasswordForm.get('confirmPassword')?.hasError('passwordMismatch') &&
+                    !changePasswordForm.get('confirmPassword')?.hasError('required')
+                  ) {
+                    <small class="text-red-500 block mt-1">Passwords do not match.</small>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="flex justify-content-end gap-2 mt-4 border-top-1 surface-border pt-3">
+            <p-button severity="contrast" type="submit"[disabled]="changePasswordForm.invalid">Change Password</p-button>
+          </div>
+        </form>
       </p-tabpanel>
     </p-tabpanels>
   </p-tabs>

@@ -111,6 +111,35 @@ export class AuthService {
       console.error('[AuthService] Failed to Decode Token', error);
       return null;
     }
+
+  }
+
+  getUserData(): any | null {
+    const token = this.getAccessToken();
+
+    if (!token) {
+      console.warn('[AuthService] No Access Token Found');
+      return null;
+    }
+
+    try {
+      const decoded: any = jwtDecode(token);
+
+      console.log('[AuthService] Decoded Token:', decoded);
+      const userData = {
+        firstName: decoded.first_name,
+        lastName: decoded.last_name,
+        email: 'test@example.com',
+        role: decoded.user_access_type
+      };
+
+      console.log('[AuthService] User Data:', userData);
+
+      return userData;
+    } catch (error) {
+      console.error('[AuthService] Failed to Decode Token', error);
+      return null;
+    }
   }
 
   getUserRole(): string | null {
