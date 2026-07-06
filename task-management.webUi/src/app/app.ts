@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Sidebar } from './components/sidebar/sidebar';
+import { Notification } from './components/notification/notification';
 import { AuthService } from './core/services/auth-service';
 import { LayoutService } from './core/services/layout-service';
 import { Toast } from 'primeng/toast';
@@ -8,7 +9,7 @@ import { Toast } from 'primeng/toast';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Toast],
+  imports: [RouterOutlet, Sidebar, Toast, Notification],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

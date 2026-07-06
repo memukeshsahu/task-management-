@@ -1,0 +1,61 @@
+.notification-wrapper {
+  position: fixed;
+  top: 0.8rem;
+  right: 1.5rem;
+  z-index: 1100;
+}
+
+.notification-btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.25rem !important;
+}
+
+.unread-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ef4444; /* red */
+  color: white;
+  border-radius: 50%;
+  padding: 0.2rem 0.35rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+  line-height: 1;
+  min-width: 1.1rem;
+  text-align: center;
+  border: 2px solid white;
+  pointer-events: none;
+}
+
+.notification-dropdown {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom Scrollbar for list */
+.notification-dropdown ::-webkit-scrollbar {
+  width: 5px;
+}
+
+.notification-dropdown ::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.notification-dropdown ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.notification-dropdown ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.unread-dot {
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.6);
+}

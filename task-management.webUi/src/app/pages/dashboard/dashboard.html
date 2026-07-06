@@ -1,1 +1,47 @@
-<p>dashboard works!</p>
+<div>
+  <h2 class="mb-1">Dashboard</h2>
+  <p class="text-black-alpha-40 mt-0 mb-4">Here's what's happening across your workspace</p>
+
+  <p-card>
+    <div class="mb-2">
+      <div class="flex justify-content-between align-items-start">
+        <div class="flex align-items-start gap-3">
+          <div
+            class="flex align-items-center justify-content-center border-circle bg-blue-50"
+            style="width: 48px; height: 48px"
+          >
+            <i class="pi pi-sun"></i>
+          </div>
+
+          <div>
+            <h3 class="m-0">My Day</h3>
+            <p class="m-0 text-black-alpha-50">Your prioritized work queue</p>
+          </div>
+        </div>
+
+        <p-badge [value]="totalPendingTasks" severity="contrast"></p-badge>
+      </div>
+    </div>
+    @for (task of tasks; track task.id) {
+      <div
+        class="border-1 border-round-lg border-red-200 p-3 mb-3 flex justify-content-between align-items-center"
+      >
+        <div class="flex align-items-center gap-3">
+          <div
+            class="flex align-items-center justify-content-center border-circle bg-red-50 text-red-500"
+            style="width: 40px; height: 40px"
+          >
+            <i class="pi pi-exclamation-circle"></i>
+          </div>
+
+          <div>
+            <h4 class="m-0">{{ task.title }}</h4>
+            <small class="text-color-secondary"> {{ task.status }} · {{ task.priority }} </small>
+          </div>
+        </div>
+
+        <p-tag [value]="task.status" severity="danger"> </p-tag>
+      </div>
+    }
+  </p-card>
+</div>
