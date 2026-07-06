@@ -44,6 +44,11 @@ export const routes: Routes = [
       .then(m => m.Dashboard), canActivate: [authGuard]
   },
   {
+    path: 'profile-settings',
+    loadComponent: () => import('./pages/profile-settings/profile-settings')
+      .then(m => m.ProfileSettings), canActivate: [authGuard]
+  },
+  {
     path: 'access-denied', loadComponent: () => import('./components/access-denied/access-denied').then
       (m => m.AccessDenied)
   }

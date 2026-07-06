@@ -1,0 +1,29 @@
+<div>
+  <h2 class="mb-1">Settings</h2>
+  <p class="text-black-alpha-40 mt-0 mb-4">
+    Manage your account preferences and settings.
+  </p>
+
+  <p-tabs value="userProfile" [selectOnFocus]="true">
+    <p-tablist>
+      <p-tab value="userProfile">Account Info</p-tab>
+      <p-tab value="changePassword">Payment</p-tab>
+    </p-tablist>
+
+    <p-tabpanels>
+      <p-tabpanel value="userProfile">
+        <h2 class="text-lg font-bold">Account Info</h2>
+        <p class="text-surface-500 mt-1">
+          Update your personal information such as name, email address, and profile picture.
+        </p>
+      </p-tabpanel>
+
+      <p-tabpanel value="changePassword">
+        <h2 class="text-lg font-bold">Payment</h2>
+        <p class="text-surface-500 mt-1">
+          Manage your subscription plan, view invoices, and update your payment method.
+        </p>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+</div>
