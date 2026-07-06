@@ -9,7 +9,7 @@ import { AuthService } from '../../core/services/auth-service';
   standalone: true,
   imports: [
     ButtonModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'

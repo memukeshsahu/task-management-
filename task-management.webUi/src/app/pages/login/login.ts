@@ -61,7 +61,7 @@ export class Login {
               response.data.refreshToken
             );
             this.toastService.success(response.message);
-            this.router.navigate(['/tasks'])
+            this.router.navigate(['/dashboard'])
 
           },
           error: (error) => {

@@ -39,9 +39,9 @@ export const routes: Routes = [
       .then(m => m.MembersList), canActivate: [authGuard]
   },
   {
-    path: 'members/add-member',
-    loadComponent: () => import('./pages/member/member')
-      .then(m => m.Member), canActivate: [authGuard]
+    path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard')
+      .then(m => m.Dashboard), canActivate: [authGuard]
   },
   {
     path: 'access-denied', loadComponent: () => import('./components/access-denied/access-denied').then
