@@ -1,8 +1,8 @@
-import { Component, signal, computed, HostListener, ElementRef, inject } from '@angular/core';
+import { Component, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 
-export interface DummyNotification {
+interface NotificationItem {
   id: number;
   title: string;
   message: string;
@@ -16,73 +16,40 @@ export interface DummyNotification {
   imports: [CommonModule, ButtonModule],
   templateUrl: './notification.html',
   styleUrl: './notification.css'
-})
+}
+)
 export class Notification {
-  private elementRef = inject(ElementRef);
+  // State Management via Signals
+  isOpen = signal<boolean>(false);
 
-  isOpen = signal(false);
-
-  notifications = signal<DummyNotification[]>([
-    {
-      id: 1,
-      title: 'New Task Assigned',
-      message: 'You have been assigned the task "Fix Authentication Bug".',
-      time: '5 mins ago',
-      read: false
-    },
-    {
-      id: 2,
-      title: 'Task Overdue',
-      message: 'The task "Database Migration Preparation" is overdue.',
-      time: '2 hours ago',
-      read: false
-    },
-    {
-      id: 3,
-      title: 'Profile Updated',
-      message: 'Your role has been updated to Administrator.',
-      time: '1 day ago',
-      read: true
-    },
-    {
-      id: 4,
-      title: 'System Maintenance',
-      message: 'Scheduled maintenance will occur on Sunday at 2 AM UTC.',
-      time: '2 days ago',
-      read: true
-    }
+  notifications = signal<NotificationItem[]>([
+    { id: 1, title: 'New Comment', message: 'John left a comment on your post.', time: '2m ago', read: false },
+    { id: 2, title: 'System Update', message: 'Server maintenance completed successfully.', time: '1h ago', read: false },
+    { id: 3, title: 'Meeting Reminder', message: 'Sync up with marketing team at 3 PM.', time: '5h ago', read: true }
   ]);
 
-  unreadCount = computed(() => {
-    return this.notifications().filter(n => !n.read).length;
-  });
+  // Derived State (Computed Signal)
+  unreadCount = computed(() => this.notifications().filter(n => !n.read).length);
 
-  toggleNotifications() {
-    this.isOpen.update(val => !val);
+  toggleNotifications(): void {
+    this.isOpen.update(prev => !prev);
   }
 
-  closeNotifications() {
-    this.isOpen.set(false);
+  markAsRead(notification: NotificationItem): void {
+    this.notifications.update(list =>
+      list.map(n => n.id === notification.id ? { ...n, read: true } : n)
+    );
   }
 
-  markAsRead(notification: DummyNotification) {
-    if (!notification.read) {
-      this.notifications.update(list =>
-        list.map(n => n.id === notification.id ? { ...n, read: true } : n)
-      );
-    }
-  }
-
-  markAllAsRead() {
+  markAllAsRead(): void {
     this.notifications.update(list =>
       list.map(n => ({ ...n, read: true }))
     );
   }
 
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: Event) {
-    if (this.isOpen() && !this.elementRef.nativeElement.contains(event.target)) {
-      this.closeNotifications();
-    }
+  // Close the dropdown when clicking anywhere else on the screen
+  @HostListener('document:click')
+  closeDropdown(): void {
+    this.isOpen.set(false);
   }
 }

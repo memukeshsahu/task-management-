@@ -1,14 +1,12 @@
 <p-toast></p-toast>
 
 @if (authService.isLoggedIn()) {
-
   <app-sidebar></app-sidebar>
-  <app-notification></app-notification>
-
+  <!-- <div class="absolute top-0 right-0 p-3 z-5">
+    <app-notification />
+  </div> -->
 }
 
-<div
-  class="main-content"
-  [class.content-shift]="layoutService.sidebarOpen()">
-
+<div class="main-content" [class.content-shift]="layoutService.sidebarOpen()">
   <router-outlet></router-outlet>
+</div>

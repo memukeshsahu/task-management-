@@ -9,7 +9,7 @@ import { Toast } from 'primeng/toast';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Toast, Notification],
+  imports: [RouterOutlet, Sidebar, Toast],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

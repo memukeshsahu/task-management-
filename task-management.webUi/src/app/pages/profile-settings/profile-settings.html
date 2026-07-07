@@ -43,7 +43,6 @@
             <div class="field col">
               <label>Email Address</label>
               <input
-                [disabled]="true"
                 type="text"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 formControlName="email"
@@ -52,7 +51,6 @@
             <div class="field col">
               <label>Role</label>
               <input
-                [disabled]="true"
                 type="text"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 formControlName="role"
@@ -78,6 +76,7 @@
                 [feedback]="false"
                 [toggleMask]="true"
                 class="w-full"
+                autocomplete="current-password"
                 inputStyleClass="w-full"
                 placeholder="Enter current password"
                 formControlName="currentPassword"
@@ -98,6 +97,7 @@
               <p-password
                 [feedback]="true"
                 [toggleMask]="false"
+                autocomplete="new-password"
                 class="w-full"
                 inputStyleClass="w-full"
                 placeholder="Enter new password"
@@ -132,6 +132,7 @@
                 [toggleMask]="true"
                 class="w-full"
                 inputStyleClass="w-full"
+                autoComplete="confirm-password"
                 placeholder="Confirm new password"
                 formControlName="confirmPassword"
               >
@@ -156,7 +157,9 @@
             </div>
           </div>
           <div class="flex justify-content-end gap-2 mt-4 border-top-1 surface-border pt-3">
-            <p-button severity="contrast" type="submit"[disabled]="changePasswordForm.invalid">Change Password</p-button>
+            <p-button severity="contrast" type="submit" [disabled]="changePasswordForm.invalid"
+              >Change Password</p-button
+            >
           </div>
         </form>
       </p-tabpanel>

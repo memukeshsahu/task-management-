@@ -34,7 +34,7 @@
     <div class="sidebar-footer">
       <div class="profile-section" routerLinkActive="active-menu">
         <i class="pi pi-user profile-icon"></i>
-        <div (click)="onProfileClick()" class="profile-details">
+        <div routerLink="/profile-settings" class="profile-details">
           <span class="name">{{ username }}</span>
           <small>{{ role }}</small>
         </div>
